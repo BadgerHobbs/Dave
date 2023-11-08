@@ -5,6 +5,7 @@ DAVE is a digital voice assistant built using OpenAI's powerful technologies inc
 ![screen-recording](https://github.com/BadgerHobbs/Dave/assets/23462440/4ba9e142-dded-421d-a061-ac3f04f8ff71)
 
 # Getting Started
+As DAVE is just a static html page, some javascript, and a couple images, running and hosting it is easy. If you're a python developer you can use something like `python3 -m http.server 8080`, otherwise there are a variety of options from VSCode extensions like [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to full NGINX deployments.
 
 ## OpenAI API
 
@@ -19,6 +20,8 @@ In order to use DAVE, an OpenAI account is required with the access to the follo
 For basic usage of DAVE, the only configuration required is for you to provide your OpenAI API key within the page url `apiKey` parameter.
 
 e.g. `?apiKey=sk-SsMzb...z07l`
+
+Currently DAVE does not store the conversation history for repeat/chained chats, though this may be added in future.
 
 ## Advanced Configuration
 
