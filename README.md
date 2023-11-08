@@ -71,7 +71,6 @@ _Note: These configuration options are additionally displayed within the console
 
 If you wish to run DAVE using docker, you can use the following command to build and deploy as a docker image.
 
-
 ```bash
 docker build -t dave .
 ```
@@ -85,8 +84,7 @@ docker run -d \
 
 ## Acknowledgments
 
-The development of DAVE was inspired by the excellent work of [Romain Huet
-](https://github.com/romainhuet), who demo'd a similar (albeit more complex) application at the 2023 OpenAI DevDay. His excellent presentation is availible to watch [here on YouTube](https://youtu.be/U9mJuUkhUzk?t=2381).
+The development of DAVE was inspired by the excellent work of [Romain Huet](https://github.com/romainhuet), who demo'd a similar (albeit more complex) application at the 2023 OpenAI DevDay. His excellent presentation is availible to watch [here on YouTube](https://youtu.be/U9mJuUkhUzk?t=2381).
 
 ## License
 
