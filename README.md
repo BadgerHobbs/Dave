@@ -71,15 +71,12 @@ _Note: These configuration options are additionally displayed within the console
 
 If you wish to run DAVE using docker, you can use the following command to build and deploy as a docker image.
 
-bash
 
-```
+```bash
 docker build -t dave .
 ```
 
-bash
-
-```
+```bash
 docker run -d \
     --name dave \
     -p 8080:80 \
