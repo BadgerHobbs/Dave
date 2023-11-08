@@ -63,6 +63,7 @@ Below are the list of availible configuration options (as of 2023/11/08):
 
 - Text-to-Speech Models (URL Param 'textToSpeechModel'):
 
+  - `You are a helpful voice assistant.` (default)
   - `custom`
 
 _Note: These configuration options are additionally displayed within the console log for convenient reference._
