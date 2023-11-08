@@ -5,6 +5,7 @@ DAVE is a digital voice assistant built using OpenAI's powerful technologies inc
 ![screen-recording](https://github.com/BadgerHobbs/Dave/assets/23462440/4ba9e142-dded-421d-a061-ac3f04f8ff71)
 
 # Getting Started
+
 As DAVE is just a static html page, some javascript, and a couple images, running and hosting it is easy. If you're a python developer you can use something like `python3 -m http.server 8080`, otherwise there are a variety of options from VSCode extensions like [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to full NGINX deployments.
 
 ## OpenAI API
@@ -65,6 +66,25 @@ Below are the list of availible configuration options (as of 2023/11/08):
   - `custom`
 
 _Note: These configuration options are additionally displayed within the console log for convenient reference._
+
+## Docker
+
+If you wish to run DAVE using docker, you can use the following command to build and deploy as a docker image.
+
+bash
+
+```
+docker build -t dave .
+```
+
+bash
+
+```
+docker run -d \
+    --name dave \
+    -p 8080:80 \
+    dave
+```
 
 ## Acknowledgments
 
