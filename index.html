@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="DAVE (Digital Assistant with Voice Empowerment) is a voice assistant built using OpenAI's Whisper Transcription, GPT-4 Chat, and Text-To-Speech (TTS) APIs.">
+    <meta name="keywords"
+        content="DAVE, Digital Assistant, Voice Empowerment, OpenAI, Whisper Transcription, GPT-4 Chat, Text-To-Speech, TTS">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dave - Your Digital Assistant with Voice Empowerment</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/dave-logo-32x32.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="icons/dave-logo-64x64.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="icons/dave-logo-128x128.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="icons/dave-logo-265x256.png">
+    <link rel="icon" type="image/png" sizes="500x500" href="icons/dave-logo-500x500.png">
+
+    <!-- Assitant Logic -->
+    <script src="/js/assistant.js"></script>
+
+    <style>
+        body,
+        html {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stateGrid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            margin-bottom: 25vh;
+        }
+
+        .stateGrid>* {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        body.waiting,
+        body.listening {
+            cursor: pointer;
+        }
+
+        body.waiting .stateGrid>* {
+            background-color: whitesmoke;
+        }
+
+        body.waiting {
+            background-color: white;
+        }
+
+        body.thinking .stateGrid>* {
+            background-color: #1A3819;
+        }
+
+        body.thinking {
+            background-color: white;
+        }
+
+        body.listening .stateGrid>*,
+        body.speaking .stateGrid>* {
+            background-color: white;
+        }
+
+        body.listening,
+        body.speaking {
+            background-color: #1A3819;
+        }
+
+        span.limitedVisibility {
+            display: none;
+        }
+
+        body.waiting #tapToSpeakText,
+        body.listening #listeningText,
+        body.thinking #thinkingText,
+        body.speaking #speakingText {
+            display: block;
+        }
+
+        span {
+            font-family: "Times New Roman", "serif";
+            font-size: 2.5rem;
+            user-select: none;
+        }
+
+        body.listening>span,
+        body.speaking>span {
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="waiting" onclick="assistant.listening()">
+
+    <div id="stateGrid" class="stateGrid"></div>
+
+    <span id="tapToSpeakText" class="limitedVisibility">Tap to speak</span>
+    <span id="listeningText" class="limitedVisibility">Listening</span>
+    <span id="thinkingText" class="limitedVisibility">Thinking</span>
+    <span id="speakingText" class="limitedVisibility">Speaking</span>
+
+    <script>
+        // Generate grid
+        const grid = document.querySelector("#stateGrid");
+        for (let i = 0; i < 36; i++)
+        {
+            grid.appendChild(document.createElement("div"));
+        }
+
+        // Animate grid
+        function randomVisibilityChange()
+        {
+            const divs = grid.children;
+            for (let div of divs)
+            {
+                div.style.visibility = Math.random() >= 0.5 ? "visible" : "hidden";
+            }
+        }
+        setInterval(randomVisibilityChange, 150);
+
+        // Display the voice, chat, and text-to-speech model options in logs
+        console.group("Configurable Assistant Settings:")
+        console.info("Voice Models (URL Param 'voiceModel'):", VoiceModel);
+        console.info("Chat Models (URL Param 'chatModel'):", ChatModel);
+        console.info("Text-to-Speech Models (URL Param 'textToSpeechModel'):", TextToSpeechModel);
+        console.groupEnd("Configurable Assistant Settings:")
+
+        // Get parameters from url
+        const apiKey = getUrlParam(
+            "apiKey",
+            "OPENAI_API_KEY_GOES_HERE",
+            "Welcome to Dave - Your Digital Assistant with Voice Empowerment.\n\nPlease set your OpenAI API key in the URL.\n\nFor futher configuration options, please check the documentation or console log.",
+        );
+        const voiceModel = getUrlParam(
+            "voiceModel",
+        );
+        const chatModel = getUrlParam(
+            "chatModel",
+        );
+        const textToSpeechModel = getUrlParam(
+            "textToSpeechModel",
+        );
+        const systemMessage = getUrlParam(
+            "systemMessage",
+        );
+
+        // Create and run assistant object
+        const assistant = new Assistant({
+            apiKey: apiKey,
+            voiceModel: voiceModel || VoiceModel.ONYX,
+            chatModel: chatModel || ChatModel.GPT_3_5_TURBO,
+            textToSpeechModel: textToSpeechModel || TextToSpeechModel.TTS_1,
+            systemMessage: systemMessage || "You are a helpful voice assistant.",
+        });
+
+        // Display assistant settings
+        console.group("Configured Assistant Settings:")
+        console.info("OpenAI API Key:", assistant.apiKey);
+        console.info("Voice Model:", assistant.voiceModel);
+        console.info("Chat Model:", assistant.chatModel);
+        console.info("Text-to-Speech Model:", assistant.textToSpeechModel);
+        console.info("System Message:", assistant.systemMessage);
+        console.groupEnd("Configured Assistant Settings:")
+
+    </script>
+</body>
+
+</html>
