@@ -1,6 +1,8 @@
-# DAVE - Your Digital Assistant with Voice Empowerment 🎙️🤖
+# DAVE - Your Digital Assistant with Voice Empowerment
 
 DAVE is a digital voice assistant built using OpenAI's powerful technologies including Whisper ASR API, GPT-4 Chat models, and Text-To-Speech (TTS) APIs. With DAVE, you can smoothly interact with a virtual assistant that listens to you attentively, processes the information with a remarkable understanding, and articulates a reply, all made perceivable with intuitive transition states.
+
+![screen-recording](https://github.com/BadgerHobbs/Dave/assets/23462440/4ba9e142-dded-421d-a061-ac3f04f8ff71)
 
 # Getting Started
 
