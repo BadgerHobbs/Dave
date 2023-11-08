@@ -24,8 +24,6 @@ For basic usage of DAVE, the only configuration required is for you to provide y
 
 e.g. `?apiKey=sk-SsMzb...z07l`
 
-Currently DAVE does not store the conversation history for repeat/chained chats, though this may be added in future.
-
 ## Advanced Configuration
 
 For more advanced usage, DAVE allows the voice, chat and text-to-speech models to be configured additionally using url parameters. It is important to note that for the models, such as GPT-4, it will depend on your level of API access.
@@ -84,6 +82,11 @@ docker run -d \
     -p 8080:80 \
     dave
 ```
+
+## Future Features
+
+- [ ] Support conversations of more than one message/question.
+- [ ] Automatically cut off recording after n seconds of silence.
 
 ## Acknowledgments
 
