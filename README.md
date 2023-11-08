@@ -8,6 +8,8 @@ DAVE is a digital voice assistant built using OpenAI's powerful technologies inc
 
 As DAVE is just a static html page, some javascript, and a couple images, running and hosting it is easy. If you're a python developer you can use something like `python3 -m http.server 8080`, otherwise there are a variety of options from VSCode extensions like [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to full NGINX deployments.
 
+A demo deployment of DAVE is additionally hosted as a static site here [here](https://dave.badgerhobbs.com) using DigitalOcean's App Platform.
+
 ## OpenAI API
 
 In order to use DAVE, an OpenAI account is required with the access to the following model endpoints.
