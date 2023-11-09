@@ -51,6 +51,7 @@ class Assistant {
   systemMessage;
   state;
   mediaRecorder;
+  mediaStream;
 
   /**
    * Initialise Assistant object.
@@ -124,18 +125,20 @@ class Assistant {
     if (this.state === State.LISTENING) {
       this.setState(State.THINKING);
       this.mediaRecorder.stop();
+      this.mediaStream.getTracks().forEach((track) => track.stop());
+      this.mediaStream = null;
     }
 
-    // Else if state waiting set state to listenind and start recording
+    // Else if state is waiting, set state to listening and start recording
     else if (this.state === State.WAITING) {
       this.setState(State.LISTENING);
 
       // Create media stream and recorder to record audio
-      const mediaStream = await navigator.mediaDevices.getUserMedia({
+      this.mediaStream = await navigator.mediaDevices.getUserMedia({
         audio: true,
         video: false,
       });
-      this.mediaRecorder = new MediaRecorder(mediaStream);
+      this.mediaRecorder = new MediaRecorder(this.mediaStream);
 
       let recordedChunks = [];
 
