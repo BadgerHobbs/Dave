@@ -228,7 +228,7 @@ class Assistant {
   }
 
   /**
-   * Call OpenAI text-to-speech API with answer transcription and play recoding back.
+   * Call OpenAI text-to-speech API with answer transcription and play recording back.
    * @param {string} answer Chat API answer to transcription.
    */
   async speaking(answer) {
@@ -251,15 +251,15 @@ class Assistant {
 
       const blob = await response.blob();
 
-      const url = window.URL.createObjectURL(blob);
-      const audio = new Audio(url);
-
-      audio.onended = () => {
+      const audioElement = document.createElement("audio");
+      audioElement.src = window.URL.createObjectURL(blob);
+      audioElement.onended = () => {
+        document.body.removeChild(audioElement);
         this.setState(State.WAITING);
       };
-
       this.setState(State.SPEAKING);
-      audio.play();
+      document.body.appendChild(audioElement);
+      audioElement.play();
     } catch (error) {
       console.error(error);
       alert(`Error: ${error}`);
