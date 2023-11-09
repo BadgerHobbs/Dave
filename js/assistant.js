@@ -251,15 +251,15 @@ class Assistant {
 
       const blob = await response.blob();
 
-      const audioElement = document.createElement("audio");
-      audioElement.src = window.URL.createObjectURL(blob);
-      audioElement.onended = () => {
-        document.body.removeChild(audioElement);
+      const url = window.URL.createObjectURL(blob);
+      const audio = new Audio(url);
+
+      audio.onended = () => {
         this.setState(State.WAITING);
       };
+
       this.setState(State.SPEAKING);
-      document.body.appendChild(audioElement);
-      audioElement.play();
+      audio.play();
     } catch (error) {
       console.error(error);
       alert(`Error: ${error}`);
