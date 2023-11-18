@@ -66,6 +66,11 @@ Below are the list of availible configuration options (as of 2023/11/08):
   - `You are a helpful voice assistant.` (default)
   - `custom`
 
+- Conversation Mode (URL Param 'conversationMode'):
+
+  - `true` (default)
+  - `false`
+
 _Note: These configuration options are additionally displayed within the console log for convenient reference._
 
 ## Docker
@@ -83,9 +88,8 @@ docker run -d \
     dave
 ```
 
-## Future Features
+## Future Enhancements
 
-- [ ] Support conversations of more than one message/question.
 - [ ] Automatically cut off recording after n seconds of silence.
 
 ## Acknowledgments

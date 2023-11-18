@@ -49,6 +49,8 @@ class Assistant {
   chatModel;
   textToSpeechModel;
   systemMessage;
+  conversationMode;
+  conversation;
   state;
   mediaRecorder;
   mediaStream;
@@ -60,6 +62,7 @@ class Assistant {
    * @param {string} chatModel Selected OpenAI chat model.
    * @param {string} textToSpeechModel Selected OpenAI text-to-speech model.
    * @param {string} systemMessage System message provided alongside prompt to OpenAI chat model.
+   * @param {boolean} conversationMode Conversation mode enabled.
    */
   constructor({
     apiKey,
@@ -67,12 +70,15 @@ class Assistant {
     chatModel,
     textToSpeechModel,
     systemMessage,
+    conversationMode,
   }) {
     this.apiKey = apiKey;
     this.voiceModel = voiceModel;
     this.chatModel = chatModel;
     this.textToSpeechModel = textToSpeechModel;
     this.systemMessage = systemMessage;
+    this.conversationMode = conversationMode;
+    this.conversation = [];
     this.state = State.WAITING;
   }
 
@@ -197,6 +203,25 @@ class Assistant {
     );
 
     try {
+
+      // Reset conversation if not in conversation mode
+      if (!this.conversationMode) {
+        this.conversation = [];
+      }
+
+      // Add system message if configured and conversation empty
+      if (this.systemMessage & this.conversation.length === 0) {
+        conversation.push({
+          role: "system",
+          content: this.systemMessage,
+        });
+      }
+
+      this.conversation.push({
+        role: "user",
+        content: transcription,
+      });
+
       // Send POST request to chat API to get answer to transcription
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
@@ -208,16 +233,7 @@ class Assistant {
           },
           body: JSON.stringify({
             model: this.chatModel,
-            messages: [
-              {
-                role: "system",
-                content: this.systemMessage,
-              },
-              {
-                role: "user",
-                content: transcription,
-              },
-            ],
+            messages: this.conversation,
           }),
         }
       );

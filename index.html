@@ -137,6 +137,7 @@
         console.info("Voice Models (URL Param 'voiceModel'):", VoiceModel);
         console.info("Chat Models (URL Param 'chatModel'):", ChatModel);
         console.info("Text-to-Speech Models (URL Param 'textToSpeechModel'):", TextToSpeechModel);
+        console.info("Conversation Mode (URL Param 'conversationMode'): true/false");
         console.groupEnd("Configurable Assistant Settings:")
 
         // Get parameters from url
@@ -157,6 +158,9 @@
         const systemMessage = getUrlParam(
             "systemMessage",
         );
+        const conversationMode = getUrlParam(
+            "conversationMode",
+        );
 
         // Create and run assistant object
         const assistant = new Assistant({
@@ -165,6 +169,7 @@
             chatModel: chatModel || ChatModel.GPT_3_5_TURBO,
             textToSpeechModel: textToSpeechModel || TextToSpeechModel.TTS_1,
             systemMessage: systemMessage || "You are a helpful and concise voice assistant.",
+            conversationMode: (conversationMode ?? "").toLowerCase() !== "false",
         });
 
         // Display assistant settings
@@ -174,6 +179,7 @@
         console.info("Chat Model:", assistant.chatModel);
         console.info("Text-to-Speech Model:", assistant.textToSpeechModel);
         console.info("System Message:", assistant.systemMessage);
+        console.info("Conversation Mode:", assistant.conversationMode);
         console.groupEnd("Configured Assistant Settings:")
 
     </script>
